@@ -7,7 +7,7 @@
         "start": "node src/server.ts",
         "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess \"node ./dist/server.js\"",
         "down": "db-migrate --env test down",
-        "test": "set NODE_ENV=test && db-migrate --env test up && npx tsc && jasmine",
+        "test": "set NODE_ENV=test && db-migrate --env test up && npx tsc && jasmine && db-migrate --env test reset",
         "build": "npx tsc",
         "jasmine": "set NODE_ENV=test && npx tsc && jasmine ",
         "tsc": "tsc"
@@ -15,8 +15,10 @@
     "author": "Udacity",
     "license": "ISC",
     "dependencies": {
+        "@types/cors": "^2.8.12",
         "@types/morgan": "^1.9.3",
         "body-parser": "^1.19.0",
+        "cors": "^2.8.5",
         "db-migrate": "^0.11.13",
         "db-migrate-pg": "^1.2.2",
         "dotenv": "^16.0.1",

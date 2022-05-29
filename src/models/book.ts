@@ -2,6 +2,7 @@ import client from '../database';
 import { book } from './book.types';
 
 export class books_store {
+    
     async index(): Promise<book[]> {
         try {
             const cn = await client.connect();

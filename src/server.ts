@@ -1,31 +1,26 @@
-import express, { Request, Response } from 'express'
-import bodyParser from 'body-parser'
-import morgan from 'morgan'
+import express, { json, Request, Response } from 'express';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import morgan from 'morgan';
 import * as dotenv from 'dotenv';
-import { books_store } from "./models/book";
+import index from './routes/api/index';
+import books from './routes/api/book/book.route'
 
-const bs = new books_store;
 dotenv.config();
 
-const app: express.Application = express()
+const app: express.Application = express();
 //const address: string = "0.0.0.0:3000"
-const Port = process.env.PORT
-import client from './database'
+const Port = process.env.PORT;
+//import client from './database'
 
-app.use(bodyParser.json())
-app.use(morgan('dev'))
-
-app.get('/',async function (req: Request, res: Response) {
-
-//client.connect();
-//const result = await ;
-    res.send(`starting app on: ${Port} ${bs.index()}`)
-})
-
+app.use(bodyParser.json());
+app.use(morgan('dev'));
+app.use(cors());
+app.use('/api', index);
+app.use('/api/books', books);
 
 app.listen(Port, function () {
-    console.log(`starting app on: ${Port}`)
-})
+    console.log(`starting app on: ${Port}`);
+});
 
-
-export default app
+export default app;

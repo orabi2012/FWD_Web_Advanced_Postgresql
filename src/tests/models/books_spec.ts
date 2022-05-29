@@ -4,18 +4,18 @@ import client from '../../database';
 
 const bs = new books_store();
 
-beforeAll(async function () {
-    const cn = await client.connect();
-    const sql = 'DELETE FROM books;';
-    await cn.query(sql);
+// beforeAll(async function () {
+//     const cn = await client.connect();
+//     const sql = 'DELETE FROM books;';
+//     await cn.query(sql);
 
-    const reset = 'ALTER SEQUENCE books_id_seq RESTART WITH 1;';
-    await cn.query(reset);
-    cn.release();
-    console.log('-RESET-Table-Books--------------------------------');
+//     const reset = 'ALTER SEQUENCE books_id_seq RESTART WITH 1;';
+//     await cn.query(reset);
+//     cn.release();
+//     console.log('-RESET-Table-Books--------------------------------');
 
-    //anything in here will apply to everything in each nested describe
-});
+//     //anything in here will apply to everything in each nested describe
+// });
 
 describe('1-Test index ', () => {
     it('1-1: test index method is exist', () => {

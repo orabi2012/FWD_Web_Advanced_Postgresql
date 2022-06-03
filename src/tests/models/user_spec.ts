@@ -1,8 +1,8 @@
-import { books_store } from '../../models/book';
-import { book } from '../../models/book.types';
+import { user_store } from '../../models/user';
+import { user } from '../../models/types/user.types';
 import client from '../../database';
 
-const bs = new books_store();
+const bs = new user_store();
 
 // beforeAll(async function () {
 //     const cn = await client.connect();
@@ -33,19 +33,19 @@ describe('2-Test Create ', () => {
         expect(bs.create).toBeDefined();
     });
 
-    it('2-2:create method should add a book', async () => {
+    fit('2-2:create method should add a user', async () => {
         const result = await bs.create({
-            title: 'Bridge to Terabithia',
-            total_pages: 250,
-            author: 'Katherine Paterson',
-            summary: 'Childrens',
+            firstname: 'ahmed',
+            lastname: 'orabi',
+            password: '123',
         });
+
+        console.log(result);
         expect(result).toEqual({
             id: 1,
-            title: 'Bridge to Terabithia',
-            total_pages: 250,
-            author: 'Katherine Paterson',
-            summary: 'Childrens',
+            firstname: 'ahmed',
+            lastname: 'orabi',
+            password: '123',
         });
     });
 });
@@ -55,14 +55,13 @@ describe('3-Test show ', () => {
         expect(bs.show).toBeDefined();
     });
 
-    it('3-2:test show return [Bridge to Terabithia] ', async () => {
+    it('3-2:test show return [1] ', async () => {
         const result = await bs.show('1');
         expect(result).toEqual({
             id: 1,
-            title: 'Bridge to Terabithia',
-            total_pages: 250,
-            author: 'Katherine Paterson',
-            summary: 'Childrens',
+            firstname: 'ahmed',
+            lastname: 'orabi',
+            password: '123',
         });
     });
 });
@@ -72,32 +71,29 @@ describe('4-Test Update ', () => {
         expect(bs.update).toBeDefined();
     });
 
-    it('4-2:update method should update a book', async () => {
+    it('4-2:update method should update a user', async () => {
         const result = await bs.update({
             id: 1,
-            title: 'ahmed',
-            total_pages: 10,
-            author: 'orabi',
-            summary: 'Node-js',
+            firstname: 'ahmed',
+            lastname: 'orabi',
+            password: '123456',
         });
         expect(result).toEqual({
             id: 1,
-            title: 'ahmed',
-            total_pages: 10,
-            author: 'orabi',
-            summary: 'Node-js',
+            firstname: 'ahmed',
+            lastname: 'orabi',
+            password: '123456',
         });
     });
 });
 
-describe('5-Test Delete ', () => {
+xdescribe('5-Test Delete ', () => {
     it('5-1:test Delete method is exist', () => {
         expect(bs.delete).toBeDefined();
     });
 
     it('5-2:test Dalete return [] ', async () => {
-        const result = await bs.delete("1");
+        const result = await bs.delete('1');
         expect(result).toEqual([]);
     });
 });
-

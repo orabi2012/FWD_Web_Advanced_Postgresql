@@ -1,10 +1,9 @@
-import express, { json, Request, Response } from 'express';
+import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import morgan from 'morgan';
 import * as dotenv from 'dotenv';
-import index from './routes/api/index';
-import books from './routes/api/book/book.route'
+import product_routes from './Handler/product'
 
 dotenv.config();
 
@@ -16,9 +15,15 @@ const Port = process.env.PORT;
 app.use(bodyParser.json());
 app.use(morgan('dev'));
 app.use(cors());
-app.use('/api', index);
-app.use('/api/books', books);
 
+
+
+app.get('/' , (_req,res)=>{
+
+    res.status(200).send(`<h3>Application Home Page : Port = ${Port} <h3/>`)
+} )
+
+product_routes(app);
 app.listen(Port, function () {
     console.log(`starting app on: ${Port}`);
 });

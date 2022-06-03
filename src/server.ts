@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import morgan from 'morgan';
 import * as dotenv from 'dotenv';
-import product_routes from './Handler/product'
+import product_routes from './Handler/product';
 
 dotenv.config();
 
@@ -16,12 +16,9 @@ app.use(bodyParser.json());
 app.use(morgan('dev'));
 app.use(cors());
 
-
-
-app.get('/' , (_req,res)=>{
-
-    res.status(200).send(`<h3>Application Home Page : Port = ${Port} <h3/>`)
-} )
+app.get('/', (_req, res) => {
+    res.status(200).send(`<h4>Application Home Page : Port = ${Port} <h4/>`);
+});
 
 product_routes(app);
 app.listen(Port, function () {

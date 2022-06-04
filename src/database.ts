@@ -5,6 +5,7 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 const {
+  PORT,
   NODE_ENV,
   PG_HOST,
   PG_PORT,
@@ -12,6 +13,8 @@ const {
   PG_DB_TEST,
   PG_USER,
   PG_PASSOWRD,
+  bcrypt_pwd,
+  bcrypt_salt,
 } = process.env;
 
 const client = new Pool({
@@ -29,4 +32,4 @@ client.on('error', (error: Error) => {
 
 //console.log(`data base = ${NODE_ENV}`)
 
-export default client;
+export { PORT, client, bcrypt_pwd, bcrypt_salt };

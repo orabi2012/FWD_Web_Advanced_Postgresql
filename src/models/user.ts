@@ -1,5 +1,13 @@
-import client from '../database';
+import { client } from '../database';
 import { user } from './types/user.types';
+import bcrypt from 'bcrypt';
+import { bcrypt_pwd, bcrypt_salt } from '../database';
+
+const hash_pwd = (passowrd: string) => {
+  const salt: number = parseInt(bcrypt_salt as string, 10);
+
+  return bcrypt.hashSync(`${passowrd}${bcrypt_pwd}`, salt);
+};
 
 export class user_store {
   async index(): Promise<user[]> {
@@ -33,23 +41,23 @@ export class user_store {
   async create(p: user): Promise<user> {
     try {
       const sql =
-        'INSERT INTO "User" (firstName,lastName,password) VALUES($1, $2, $3) RETURNING *';
+        'INSERT INTO "User" (username,firstname,lastname,password) VALUES($1, $2, $3 ,$4) RETURNING *';
 
       const conn = await client.connect();
 
       const result = await conn.query(sql, [
+        p.username,
         p.firstname,
         p.lastname,
-        p.password,
+        hash_pwd(p.password),
       ]);
 
       const _user = result.rows[0];
 
       conn.release();
-      //  console.log(_user);
       return _user;
     } catch (err) {
-      throw new Error(`Could not add new user ${p.firstname}. Error: ${err}`);
+      throw new Error(`Could not add new user ${p.username}. ${err}`);
     }
   }
 
@@ -86,7 +94,7 @@ export class user_store {
 
       return p;
     } catch (err) {
-      throw new Error(`Could not update user ${p.firstname}. Error: ${err}`);
+      throw new Error(`Could not update user ${p.username}. Error: ${err}`);
     }
   }
 }

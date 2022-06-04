@@ -33,8 +33,9 @@ describe('2-Test Create ', () => {
     expect(bs.create).toBeDefined();
   });
 
-  fit('2-2:create method should add a user', async () => {
+  it('2-2:create method should add a user', async () => {
     const result = await bs.create({
+      username: 'aorabi',
       firstname: 'ahmed',
       lastname: 'orabi',
       password: '123',
@@ -43,6 +44,7 @@ describe('2-Test Create ', () => {
     console.log(result);
     expect(result).toEqual({
       id: 1,
+      username: 'aorabi',
       firstname: 'ahmed',
       lastname: 'orabi',
       password: '123',
@@ -59,6 +61,7 @@ describe('3-Test show ', () => {
     const result = await bs.show('1');
     expect(result).toEqual({
       id: 1,
+      username: 'aorabi',
       firstname: 'ahmed',
       lastname: 'orabi',
       password: '123',
@@ -74,12 +77,14 @@ describe('4-Test Update ', () => {
   it('4-2:update method should update a user', async () => {
     const result = await bs.update({
       id: 1,
+      username: 'aorabi',
       firstname: 'ahmed',
       lastname: 'orabi',
       password: '123456',
     });
     expect(result).toEqual({
       id: 1,
+      username: 'aorabi',
       firstname: 'ahmed',
       lastname: 'orabi',
       password: '123456',
@@ -87,7 +92,7 @@ describe('4-Test Update ', () => {
   });
 });
 
-xdescribe('5-Test Delete ', () => {
+describe('5-Test Delete ', () => {
   it('5-1:test Delete method is exist', () => {
     expect(bs.delete).toBeDefined();
   });

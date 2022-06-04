@@ -29,7 +29,7 @@ describe('product test', () => {
     });
   });
 
-  fdescribe('2-Test Create ', () => {
+  describe('2-Test Create ', () => {
     it('2-1:test Create method is exist', () => {
       expect(bs.create).toBeDefined();
     });

@@ -1,4 +1,4 @@
-import client from '../database';
+import { client } from '../database';
 import { product } from './types/product.types';
 
 export class product_store {
@@ -86,7 +86,7 @@ export class product_store {
     }
   }
 
-  async showByCategory(category: string): Promise<product> {
+  async showByCategory(category: string): Promise<product[]> {
     try {
       const sql = `SELECT * FROM product WHERE category='${category}'`;
 
@@ -96,7 +96,7 @@ export class product_store {
 
       cn.release();
 
-      return result.rows[0];
+      return result.rows;
     } catch (err) {
       throw new Error(`Could not find product ${category}. Error: ${err}`);
     }

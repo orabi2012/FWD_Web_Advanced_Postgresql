@@ -34,7 +34,7 @@ const showById = async (req: Request, res: Response) => {
     if (result) {
       res.json(result);
     } else {
-      res.json('Not found');
+      res.json({ message: 'Product Not found' });
     }
   } catch (error) {
     res.status(400);
@@ -50,7 +50,7 @@ const showByCategory = async (req: Request, res: Response) => {
     if (result) {
       res.json(result);
     } else {
-      res.json({ result: 'Not found' });
+      res.json({ message: 'Category Not found' });
     }
   } catch (error) {
     res.status(400);

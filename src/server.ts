@@ -17,12 +17,12 @@ app.use(morgan('dev'));
 app.use(cors());
 
 app.get('/', (_req, res) => {
-    res.status(200).send(`<h4>Application Home Page : Port = ${Port} <h4/>`);
+  res.status(200).send(`<h4>Application Home Page : Port = ${Port} <h4/>`);
 });
 
 product_routes(app);
 app.listen(Port, function () {
-    console.log(`starting app on: ${Port}`);
+  console.log(`starting app on: ${Port}`);
 });
 
 export default app;

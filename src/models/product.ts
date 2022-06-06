@@ -1,4 +1,4 @@
-import { client } from '../database';
+import client from '../database';
 import { product } from './types/product.types';
 
 export class product_store {
@@ -45,7 +45,7 @@ export class product_store {
 
       return _product;
     } catch (err) {
-      throw new Error(`Could not add new product ${p.name}. Error: ${err}`);
+      throw new Error(`Could not add new product ${p.name}. ${err}`);
     }
   }
 

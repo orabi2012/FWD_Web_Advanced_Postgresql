@@ -5,7 +5,7 @@ import morgan from 'morgan';
 import * as dotenv from 'dotenv';
 import product_routes from './Handler/product';
 import user_routes from './Handler/user';
-import { PORT } from './database';
+import { PORT } from './configuration';
 
 dotenv.config();
 

@@ -7,8 +7,8 @@
     "start": "nodemon ./src/server.ts",
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess \"node ./dist/server.js\"",
     "down": "db-migrate --env test down -c 10",
-    "up:dev": "db-migrate --env dev up -c 10",
-    "down:dev": "db-migrate --env dev down -c 10",
+    "up:dev": "db-migrate --env dev up:all",
+    "down:dev": "db-migrate --env dev reset",
     "test": "set NODE_ENV=test && db-migrate --env test up  -c 10 && npx tsc && jasmine && db-migrate --env test reset -c 10",
     "build": "npx tsc",
     "jasmine": "set NODE_ENV=test && npx tsc && jasmine ",
@@ -25,6 +25,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "pg": "^8.5.1"
   },
   "devDependencies": {
@@ -32,6 +33,7 @@
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.9",
     "@types/jasmine": "^3.6.3",
+    "@types/jsonwebtoken": "^8.5.8",
     "@types/morgan": "^1.9.3",
     "@types/pg": "^7.14.7",
     "@types/supertest": "^2.0.12",

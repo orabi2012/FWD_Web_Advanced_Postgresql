@@ -1,9 +1,9 @@
-import { client } from '../database';
+import client from '../database';
 import { user } from './types/user.types';
 import bcrypt from 'bcrypt';
-import { bcrypt_pwd, bcrypt_salt } from '../database';
+import { bcrypt_pwd, bcrypt_salt } from '../configuration';
 
-const hash_pwd = (passowrd: string) => {
+const hash_pwd = (passowrd: string): string => {
   const salt: number = parseInt(bcrypt_salt as string, 10);
 
   return bcrypt.hashSync(`${passowrd}${bcrypt_pwd}`, salt);
@@ -35,6 +35,22 @@ export class user_store {
       return result.rows[0];
     } catch (err) {
       throw new Error(`Could not find "User" ${id}. Error: ${err}`);
+    }
+  }
+
+  async showByUsername(username: string): Promise<user> {
+    try {
+      const sql = 'SELECT * FROM "User" WHERE username=($1)';
+
+      const cn = await client.connect();
+
+      const result = await cn.query(sql, [username]);
+
+      cn.release();
+
+      return result.rows[0];
+    } catch (err) {
+      throw new Error(`Could not find "User" ${username}. Error: ${err}`);
     }
   }
 
@@ -95,6 +111,33 @@ export class user_store {
       return p;
     } catch (err) {
       throw new Error(`Could not update user ${p.username}. Error: ${err}`);
+    }
+  }
+
+  async auth(username: string, plainPassword: string): Promise<user | null> {
+    try {
+      const cn = await client.connect();
+      const sql = 'SELECT "password" FROM "User" WHERE username=($1)';
+      const result = await cn.query(sql, [username]);
+      console.log(plainPassword + bcrypt_pwd);
+      if (result.rows.length) {
+        const user = result.rows[0];
+        const isvalid = bcrypt.compareSync(
+          `${plainPassword}${bcrypt_pwd}`,
+          user.password
+        ); // true
+        // console.log('isvalid =>' + isvalid);
+        if (isvalid) {
+          const user = await this.showByUsername(username);
+          return user;
+        } else {
+          return null;
+        }
+      } else {
+        return null;
+      }
+    } catch (error) {
+      throw new Error('error' + error);
     }
   }
 }

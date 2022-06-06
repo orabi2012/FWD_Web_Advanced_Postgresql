@@ -21,7 +21,7 @@ const create = async (req: Request, res: Response) => {
     res.json(result);
   } catch (error) {
     res.status(400);
-    res.json(error);
+    res.json(`${error}`);
   }
   //res.status(200).send(p)
 };

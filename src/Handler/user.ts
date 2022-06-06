@@ -75,10 +75,33 @@ const Delete = async (req: Request, res: Response) => {
   }
 };
 
+const auth = async (req: Request, res: Response) => {
+  const p: user = {
+    username: req.body.username,
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
+    password: req.body.password,
+  };
+  try {
+    const result = await ps.auth(p.username, p.password);
+    console.log('result=>' + result);
+    if (result) {
+      res.json(result);
+    } else {
+      res.json({ message: 'wrong user name or password !' });
+      // res.json('Not found');
+    }
+  } catch (error) {
+    res.status(400);
+    res.json({ message: 'error handller' + error });
+  }
+};
+
 const user_routes = (app: express.Application) => {
   app.get('/user', index);
   app.post('/user', create);
   app.get('/user/:id', showById);
   app.delete('/user/:id', Delete);
+  app.post('/user_auth', auth);
 };
 export default user_routes;

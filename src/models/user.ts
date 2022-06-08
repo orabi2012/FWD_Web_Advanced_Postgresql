@@ -40,7 +40,8 @@ export class user_store {
 
   async showByUsername(username: string): Promise<user> {
     try {
-      const sql = 'SELECT * FROM "User" WHERE username=($1)';
+      const sql =
+        'SELECT id,username,firstname,lastname FROM "User" WHERE username=($1)';
 
       const cn = await client.connect();
 
@@ -119,7 +120,6 @@ export class user_store {
       const cn = await client.connect();
       const sql = 'SELECT "password" FROM "User" WHERE username=($1)';
       const result = await cn.query(sql, [username]);
-      console.log(plainPassword + bcrypt_pwd);
       if (result.rows.length) {
         const user = result.rows[0];
         const isvalid = bcrypt.compareSync(
@@ -129,6 +129,7 @@ export class user_store {
         // console.log('isvalid =>' + isvalid);
         if (isvalid) {
           const user = await this.showByUsername(username);
+
           return user;
         } else {
           return null;

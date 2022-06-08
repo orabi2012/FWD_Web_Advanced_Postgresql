@@ -20,6 +20,7 @@ app.use(cors());
 
 product_routes(app);
 user_routes(app);
+
 app.get('/', (_req, res) => {
   res.status(200).send(`Application Home Page : PORT = ${PORT}`);
 });

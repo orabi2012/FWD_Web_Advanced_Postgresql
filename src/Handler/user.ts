@@ -1,6 +1,8 @@
 import express, { Request, Response } from 'express';
 import { user } from '../models/types/user.types';
 import { user_store } from '../models/user';
+import jwt from 'jsonwebtoken';
+import { jwt_token } from '../configuration';
 
 const ps = new user_store();
 
@@ -19,8 +21,10 @@ const create = async (req: Request, res: Response) => {
 
   try {
     const result = await ps.create(p);
-    console.log({ result });
-    res.json(result);
+    // const user = result;
+    const token = jwt.sign(`${result}`, `${jwt_token}`);
+    console.log({ data: result, token: token });
+    res.json({ data: result, token: token });
   } catch (error) {
     res.status(400);
     res.json(`${error}`);
@@ -84,9 +88,11 @@ const auth = async (req: Request, res: Response) => {
   };
   try {
     const result = await ps.auth(p.username, p.password);
-    console.log('result=>' + result);
+    console.log('result=>' + result?.username);
     if (result) {
-      res.json(result);
+      const user = result.id;
+      const token = jwt.sign(`${user}`, `${jwt_token}`);
+      res.json({ data: result, token: token });
     } else {
       res.json({ message: 'wrong user name or password !' });
       // res.json('Not found');

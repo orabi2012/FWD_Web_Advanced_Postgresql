@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import { product } from '../models/types/product.types';
 import { product_store } from '../models/product';
+import jwt_validator from '../middleware/jwt_middleware';
 
 const ps = new product_store();
 
@@ -75,7 +76,7 @@ const Delete = async (req: Request, res: Response) => {
 };
 
 const product_routes = (app: express.Application) => {
-  app.get('/product', index);
+  app.get('/product', jwt_validator, index);
   app.post('/product', create);
   app.get('/product/:id', showById);
   app.delete('/product/:id', Delete);

@@ -16,7 +16,7 @@ const create = async (req: Request, res: Response) => {
     username: req.body.username,
     firstname: req.body.firstname,
     lastname: req.body.lastname,
-    password: req.body.password,
+    pwd: req.body.pwd,
   };
 
   try {
@@ -84,22 +84,28 @@ const auth = async (req: Request, res: Response) => {
     username: req.body.username,
     firstname: req.body.firstname,
     lastname: req.body.lastname,
-    password: req.body.password,
+    pwd: req.body.pwd,
   };
   try {
-    const result = await ps.auth(p.username, p.password);
+    const result = await ps.auth(p.username, p.pwd);
     console.log('result=>' + result?.username);
     if (result) {
-      const user = result.id;
-      const token = jwt.sign(`${user}`, `${jwt_token}`);
-      res.json({ data: result, token: token });
+      //const user = result;
+      const token = jwt.sign({ result }, `${jwt_token}`);
+      res.status(200);
+      res.json({
+        user_data: { ...result },
+        token: token,
+        message: `user ${result.username} successfully authenticated`,
+      });
     } else {
-      res.json({ message: 'wrong user name or password !' });
+      res.status(400);
+      res.json({ message: 'wrong user name or pwd !' });
       // res.json('Not found');
     }
   } catch (error) {
     res.status(400);
-    res.json({ message: 'error handller' + error });
+    res.json({ message: 'Error => ' + error });
   }
 };
 

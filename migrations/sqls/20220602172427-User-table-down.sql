@@ -1,3 +1,3 @@
 /* Replace with your SQL commands */
 
-DROP TABLE "User";
+DROP TABLE Users;

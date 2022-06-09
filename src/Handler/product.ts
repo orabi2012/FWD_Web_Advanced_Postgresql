@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { product } from '../models/types/product.types';
+import { Product } from '../models/types/product.types';
 import { product_store } from '../models/product';
 import jwt_validator from '../middleware/jwt_middleware';
 
@@ -11,7 +11,7 @@ const index = async (req: Request, res: Response) => {
 };
 
 const create = async (req: Request, res: Response) => {
-  const p: product = {
+  const p: Product = {
     name: req.body.name,
     price: req.body.price,
     category: req.body.category,

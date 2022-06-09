@@ -38,7 +38,7 @@ describe('2-Test Create ', () => {
       username: 'aorabi',
       firstname: 'ahmed',
       lastname: 'orabi',
-      password: '123',
+      pwd: '123',
     });
 
     console.log(result);
@@ -47,7 +47,7 @@ describe('2-Test Create ', () => {
       username: 'aorabi',
       firstname: 'ahmed',
       lastname: 'orabi',
-      password: '123',
+      pwd: '123',
     });
   });
 });
@@ -64,7 +64,7 @@ describe('3-Test show ', () => {
       username: 'aorabi',
       firstname: 'ahmed',
       lastname: 'orabi',
-      password: '123',
+      pwd: '123',
     });
   });
 });
@@ -80,14 +80,14 @@ describe('4-Test Update ', () => {
       username: 'aorabi',
       firstname: 'ahmed',
       lastname: 'orabi',
-      password: '123456',
+      pwd: '123456',
     });
     expect(result).toEqual({
       id: 1,
       username: 'aorabi',
       firstname: 'ahmed',
       lastname: 'orabi',
-      password: '123456',
+      pwd: '123456',
     });
   });
 });

@@ -1,8 +1,8 @@
 import client from '../database';
-import { product } from './types/product.types';
+import { Product } from './types/product.types';
 
 export class product_store {
-  async index(): Promise<product[]> {
+  async index(): Promise<Product[]> {
     try {
       const cn = await client.connect();
       const sql = 'SELECT * FROM product';
@@ -14,7 +14,7 @@ export class product_store {
       throw new Error('error' + error);
     }
   }
-  async show(id: string): Promise<product> {
+  async show(id: string): Promise<Product> {
     try {
       const sql = `SELECT * FROM product WHERE id=${id}`;
 
@@ -30,7 +30,7 @@ export class product_store {
     }
   }
 
-  async create(p: product): Promise<product> {
+  async create(p: Product): Promise<Product> {
     try {
       const sql =
         'INSERT INTO product (name,price,category) VALUES($1, $2, $3) RETURNING *';
@@ -49,7 +49,7 @@ export class product_store {
     }
   }
 
-  async delete(id: string): Promise<product[]> {
+  async delete(id: string): Promise<Product[]> {
     try {
       const sql = `DELETE FROM product WHERE id='${id}'`;
 
@@ -67,7 +67,7 @@ export class product_store {
     }
   }
 
-  async update(p: product): Promise<product> {
+  async update(p: Product): Promise<Product> {
     try {
       const sql = `UPDATE product
             SET  name='${p.name}', price=${p.price}, category='${p.category}'
@@ -86,7 +86,7 @@ export class product_store {
     }
   }
 
-  async showByCategory(category: string): Promise<product[]> {
+  async showByCategory(category: string): Promise<Product[]> {
     try {
       const sql = `SELECT * FROM product WHERE category='${category}'`;
 

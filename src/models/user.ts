@@ -1,5 +1,5 @@
 import client from '../database';
-import { user } from './types/user.types';
+import { User } from './types/user.types';
 import bcrypt from 'bcrypt';
 import { bcrypt_pwd, bcrypt_salt } from '../configuration';
 
@@ -13,7 +13,7 @@ const hash_pwd = (passowrd: string): string => {
 };
 
 export class user_store {
-  async index(): Promise<user[]> {
+  async index(): Promise<User[]> {
     try {
       const cn = await client.connect();
       const sql = 'SELECT * FROM Users';
@@ -25,7 +25,7 @@ export class user_store {
       throw new Error('error' + error);
     }
   }
-  async show(id: string): Promise<user> {
+  async show(id: string): Promise<User> {
     try {
       const sql = `SELECT * FROM Users WHERE id=${id}`;
 
@@ -41,7 +41,7 @@ export class user_store {
     }
   }
 
-  async showByUsername(username: string): Promise<user> {
+  async showByUsername(username: string): Promise<User> {
     try {
       const sql =
         'SELECT id,username,firstname,lastname FROM Users WHERE username=($1)';
@@ -58,7 +58,7 @@ export class user_store {
     }
   }
 
-  async create(p: user): Promise<user> {
+  async create(p: User): Promise<User> {
     try {
       if (p.pwd != null && p.pwd != '') {
         const sql =
@@ -85,7 +85,7 @@ export class user_store {
     }
   }
 
-  async delete(id: string): Promise<user[]> {
+  async delete(id: string): Promise<User[]> {
     try {
       const sql = `DELETE FROM Users WHERE id='${id}'`;
 
@@ -103,7 +103,7 @@ export class user_store {
     }
   }
 
-  async cahnge_pwd(p: user): Promise<user> {
+  async update(p: User): Promise<User> {
     try {
       const sql = `UPDATE Users
             SET  pwd='${p.pwd}'
@@ -122,7 +122,7 @@ export class user_store {
     }
   }
 
-  async auth(username: string, plainPassword: string): Promise<user | null> {
+  async auth(username: string, plainPassword: string): Promise<User | null> {
     try {
       const cn = await client.connect();
       const sql = 'SELECT "pwd" FROM Users WHERE username=($1)';

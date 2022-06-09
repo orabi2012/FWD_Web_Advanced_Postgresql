@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { user } from '../models/types/user.types';
+import { User } from '../models/types/user.types';
 import { user_store } from '../models/user';
 import jwt from 'jsonwebtoken';
 import { jwt_token } from '../configuration';
@@ -12,7 +12,7 @@ const index = async (req: Request, res: Response) => {
 };
 
 const create = async (req: Request, res: Response) => {
-  const p: user = {
+  const p: User = {
     username: req.body.username,
     firstname: req.body.firstname,
     lastname: req.body.lastname,
@@ -80,7 +80,7 @@ const Delete = async (req: Request, res: Response) => {
 };
 
 const auth = async (req: Request, res: Response) => {
-  const p: user = {
+  const p: User = {
     username: req.body.username,
     firstname: req.body.firstname,
     lastname: req.body.lastname,

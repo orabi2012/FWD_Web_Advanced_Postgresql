@@ -36,4 +36,5 @@ const jwt_error = async (res: Response) => {
   console.log('Unauthorized Access');
   res.json({ message: 'Unauthorized Access' });
 };
+
 export default jwt_validator;

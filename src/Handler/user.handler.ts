@@ -1,10 +1,10 @@
 import express, { Request, Response } from 'express';
 import { User } from '../models/types/user.types';
-import { user_store } from '../models/user';
+import { user_model } from '../models/user.model';
 import jwt from 'jsonwebtoken';
 import { jwt_token } from '../configuration';
 
-const ps = new user_store();
+const ps = new user_model();
 
 const index = async (req: Request, res: Response) => {
   const p = await ps.index();

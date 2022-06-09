@@ -3,8 +3,9 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import morgan from 'morgan';
 import * as dotenv from 'dotenv';
-import product_routes from './Handler/product';
-import user_routes from './Handler/user';
+import product_routes from './Handler/product.handler';
+import user_routes from './Handler/user.handler';
+import order_routes from './Handler/order.handler';
 import { PORT } from './configuration';
 
 dotenv.config();
@@ -20,6 +21,7 @@ app.use(cors());
 
 product_routes(app);
 user_routes(app);
+order_routes(app);
 
 app.get('/', (_req, res) => {
   res.status(200).send(`Application Home Page : PORT = ${PORT}`);

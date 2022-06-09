@@ -1,8 +1,8 @@
-import { product_store } from '../../models/product';
+import { product_model } from '../../models/product.model';
 //import { product } from '../../models/types/product.types';
 //import client from '../../database';
 
-const bs = new product_store();
+const bs = new product_model();
 
 // beforeAll(async function () {
 //     const cn = await client.connect();

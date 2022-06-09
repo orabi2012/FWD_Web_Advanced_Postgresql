@@ -1,9 +1,9 @@
 import express, { Request, Response } from 'express';
 import { Product } from '../models/types/product.types';
-import { product_store } from '../models/product';
+import { product_model } from '../models/product.model';
 import jwt_validator from '../middleware/jwt_middleware';
 
-const ps = new product_store();
+const ps = new product_model();
 
 const index = async (req: Request, res: Response) => {
   const p = await ps.index();

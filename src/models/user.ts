@@ -16,7 +16,7 @@ export class user_store {
   async index(): Promise<user[]> {
     try {
       const cn = await client.connect();
-      const sql = 'SELECT * FROM "User"';
+      const sql = 'SELECT * FROM Users';
       const result = await cn.query(sql);
       // console.log(result.rows);
       cn.release();
@@ -54,7 +54,7 @@ export class user_store {
 
       return result.rows[0];
     } catch (err) {
-      throw new Error(`Could not find "User" ${username}. Error: ${err}`);
+      throw new Error(`Could not find User ${username}. Error: ${err}`);
     }
   }
 

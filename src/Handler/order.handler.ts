@@ -39,7 +39,7 @@ const close_order = async (req: Request, res: Response) => {
 };
 
 const showByUser = async (req: Request, res: Response) => {
-  const user_id: string = req.params.user_id;
+  const user_id: number = parseInt(req.params.user_id);
 
   try {
     const result = await order_model.showByUser(user_id);

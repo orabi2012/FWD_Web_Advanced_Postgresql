@@ -23,6 +23,7 @@ const jwt_validator = async (
         console.log(user_id);
         // send userid with req
         req.body.user_id = user_id;
+        req.body.token = token;
         console.log('Authorized Access');
         next();
       } catch (error) {

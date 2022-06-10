@@ -17,7 +17,7 @@ export class Order_model {
   }
   async show(id: string): Promise<Order> {
     try {
-      const sql = `SELECT * FROM orders WHERE order_id=${id}`;
+      const sql = `SELECT * FROM orders WHERE id=${id}`;
 
       const cn = await client.connect();
 
@@ -69,7 +69,7 @@ export class Order_model {
       throw new Error(`Could not update  order : ${order_id}`);
     }
   }
-  async showByUser(user_id: string): Promise<Order[]> {
+  async showByUser(user_id: number): Promise<Order[]> {
     try {
       const sql = `SELECT * FROM orders WHERE user_id=${user_id}`;
 

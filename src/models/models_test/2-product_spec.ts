@@ -1,17 +1,16 @@
 import { product_model } from '../product.model';
 //import { product } from '../../models/types/product.types';
 //import client from '../../database';
-//import { user_model } from '../user.model';
-
+import { user_model } from '../user.model';
 const bs = new product_model();
-
-// beforeAll(async function () {
-//   const _user_model = new user_model();
-//   const _created_user = await _user_model.auth('aorabi', '123');
-//   console.log(_created_user);
-// });
+const _user_model = new user_model();
 
 describe('product test', () => {
+  beforeAll(async function () {
+    const _created_user = await _user_model.auth('aorabi', '123');
+    console.log('&&&&&&&&&&&&&&');
+    console.log(_created_user?.id);
+  });
   describe('1-Test product index ', () => {
     it('1-1: test index method is exist', () => {
       expect(bs.index).toBeDefined();
@@ -73,36 +72,4 @@ describe('product test', () => {
       expect(result.length).toEqual(0);
     });
   });
-
-  // describe('4-Test Update ', () => {
-  //   it('4-1:test Update method is exist', () => {
-  //     expect(bs.update).toBeDefined();
-  //   });
-
-  //   it('4-2:update method should update a product', async () => {
-  //     const result = await bs.update({
-  //       id: 1,
-  //       name: 'meronem',
-  //       price: 150,
-  //       category: 'Injection',
-  //     });
-  //     expect(result).toEqual({
-  //       id: 1,
-  //       name: 'meronem',
-  //       price: 150,
-  //       category: 'Injection',
-  //     });
-  //   });
-  // });
-
-  // describe('5-Test Delete ', () => {
-  //   it('5-1:test Delete method is exist', () => {
-  //     expect(bs.delete).toBeDefined();
-  //   });
-
-  //   it('5-2:test Dalete return [] ', async () => {
-  //     const result = await bs.delete('1');
-  //     expect(result).toEqual([]);
-  //   });
-  // });
 });

@@ -9,24 +9,6 @@ const index = async (req: Request, res: Response) => {
   const p = await ps.index();
   res.json(p);
 };
-
-const create = async (req: Request, res: Response) => {
-  const p: Product = {
-    name: req.body.name,
-    price: req.body.price,
-    category: req.body.category,
-  };
-
-  try {
-    const result = await ps.create(p);
-    res.json(result);
-  } catch (error) {
-    res.status(400);
-    res.json(`${error}`);
-  }
-  //res.status(200).send(p)
-};
-
 const showById = async (req: Request, res: Response) => {
   const id: string = req.params.id;
 
@@ -58,30 +40,26 @@ const showByCategory = async (req: Request, res: Response) => {
     res.json(error);
   }
 };
-
-const Delete = async (req: Request, res: Response) => {
-  const id: string = req.params.id;
+const create = async (req: Request, res: Response) => {
+  const p: Product = {
+    name: req.body.name,
+    price: req.body.price,
+    category: req.body.category,
+  };
 
   try {
-    const result = await ps.delete(id);
-    if (!result) {
-      res.json(result);
-    } else {
-      res.json('Not found');
-    }
+    const result = await ps.create(p);
+    res.json(result);
   } catch (error) {
     res.status(400);
-    res.json(error);
+    res.json(`${error}`);
   }
 };
 
 const product_routes = (app: express.Application) => {
-  app.get('/product', jwt_validator, index);
-  app.post('/product', create);
+  app.get('/products', index);
+  app.post('/product/create', jwt_validator, create);
   app.get('/product/:id', showById);
-  app.delete('/product/:id', Delete);
-  app.get('/product_category/:category', showByCategory);
-  //show all if category not provided
-  app.get('/product_category', index);
+  app.get('/products/:category/category', showByCategory);
 };
 export default product_routes;

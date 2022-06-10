@@ -1,7 +1,5 @@
 export type Order = {
-  order_id?: number;
-  product_id: number;
-  quantity: number;
+  id?: number;
   user_id: number;
   order_status: string;
 };

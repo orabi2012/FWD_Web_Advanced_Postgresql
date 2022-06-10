@@ -3,6 +3,7 @@ import { User } from '../models/types/user.types';
 import { user_model } from '../models/user.model';
 import jwt from 'jsonwebtoken';
 import { jwt_token } from '../configuration';
+import jwt_validator from '../middleware/jwt_middleware';
 
 const ps = new user_model();
 
@@ -31,11 +32,11 @@ const create = async (req: Request, res: Response) => {
   }
 };
 
-const showById = async (req: Request, res: Response) => {
+const showByUseId = async (req: Request, res: Response) => {
   const id: string = req.params.id;
 
   try {
-    const result = await ps.show(id);
+    const result = await ps.showByUseId(id);
     if (result) {
       res.json(result);
     } else {
@@ -63,21 +64,21 @@ const showById = async (req: Request, res: Response) => {
 //   }
 // };
 
-const Delete = async (req: Request, res: Response) => {
-  const id: string = req.params.id;
+// const Delete = async (req: Request, res: Response) => {
+//   const id: string = req.params.id;
 
-  try {
-    const result = await ps.delete(id);
-    if (!result) {
-      res.json(result);
-    } else {
-      res.json('Not found');
-    }
-  } catch (error) {
-    res.status(400);
-    res.json(error);
-  }
-};
+//   try {
+//     const result = await ps.delete(id);
+//     if (!result) {
+//       res.json(result);
+//     } else {
+//       res.json('Not found');
+//     }
+//   } catch (error) {
+//     res.status(400);
+//     res.json(error);
+//   }
+// };
 
 const auth = async (req: Request, res: Response) => {
   const p: User = {
@@ -110,10 +111,10 @@ const auth = async (req: Request, res: Response) => {
 };
 
 const user_routes = (app: express.Application) => {
-  app.get('/user', index);
-  app.post('/user', create);
-  app.get('/user/:id', showById);
-  app.delete('/user/:id', Delete);
-  app.post('/user_auth', auth);
+  app.get('/users', jwt_validator, index);
+  app.post('/user/create', create);
+  app.get('/user/:id', jwt_validator, showByUseId);
+  // app.delete('/user/:id', Delete);
+  app.post('/login', auth);
 };
 export default user_routes;

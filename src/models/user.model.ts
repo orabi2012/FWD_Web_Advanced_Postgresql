@@ -25,7 +25,7 @@ export class user_model {
       throw new Error('error' + error);
     }
   }
-  async show(id: string): Promise<User> {
+  async showByUseId(id: string): Promise<User> {
     try {
       const sql = `SELECT * FROM Users WHERE id=${id}`;
 
@@ -82,43 +82,6 @@ export class user_model {
       }
     } catch (err) {
       throw new Error(`Could not add new user ${p.username}. ${err}`);
-    }
-  }
-
-  async delete(id: string): Promise<User[]> {
-    try {
-      const sql = `DELETE FROM Users WHERE id='${id}'`;
-
-      const cn = await client.connect();
-
-      await cn.query(sql);
-
-      const sql2 = `SELECT * FROM Users WHERE id='${id}'`;
-      const result = await cn.query(sql2);
-      // console.log(result.rows);
-      cn.release();
-      return result.rows;
-    } catch (err) {
-      throw new Error(`Could not delete user ${id}. Error: ${err}`);
-    }
-  }
-
-  async update(p: User): Promise<User> {
-    try {
-      const sql = `UPDATE Users
-            SET  pwd='${p.pwd}'
-            WHERE id=${p.id}`;
-
-      const conn = await client.connect();
-      await conn.query(sql);
-
-      // const result = await this.show("1");
-
-      conn.release();
-
-      return p;
-    } catch (err) {
-      throw new Error(`Could not update user ${p.username}. Error: ${err}`);
     }
   }
 

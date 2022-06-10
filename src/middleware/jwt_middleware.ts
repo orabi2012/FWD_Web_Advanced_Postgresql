@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
+import jwt, { JwtPayload } from 'jsonwebtoken';
+import jwt_decode from 'jwt-decode';
 import { jwt_token } from '../configuration';
 
 const jwt_validator = async (
@@ -15,7 +16,13 @@ const jwt_validator = async (
     if (token) {
       try {
         jwt.verify(token, jwt_token as unknown as string);
-        // console.log(jwt_payload);
+        // get userid from token
+        const decoded: JwtPayload = jwt_decode(token);
+        const { result } = decoded;
+        const user_id = result.id;
+        console.log(user_id);
+        // send userid with req
+        req.body.user_id = user_id;
         console.log('Authorized Access');
         next();
       } catch (error) {

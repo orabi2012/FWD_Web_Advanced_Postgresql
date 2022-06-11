@@ -6,37 +6,76 @@ These are the notes from a meeting with the frontend developer that describe wha
 ## API Endpoints
 #### Products
 - Index 
-- Show
+Get : /products
+
+- Show (args : product id )
+Get : /product/:id
+
 - Create [token required]
-- [OPTIONAL] Top 5 most popular products 
+POST : /product/create
+
 - [OPTIONAL] Products by category (args: product category)
+GET : /products/:category/category
+
 
 #### Users
 - Index [token required]
-- Show [token required]
-- Create N[token required]
+GET : users
+
+- Show [token required] (args : user id )
+GET : /user/:id
+
+- Create User
+POST : /user/create 
+
+- Authinication
+POST : /user/login
 
 #### Orders
-- Current Order by user (args: user id)[token required]
-- [OPTIONAL] Completed Orders by user (args: user id)[token required]
+- Current Order by user (userid will extracted from token)[token required]
+GET : /order/active
+
+- index [token required]
+GET /orders
+
+- Create Order [token required]
+POST : order/create
+
+- Completed Orders by user (userid will extracted from token)[token required]
+GET : /order/complete
+
+- Create Order [token required]
+POST : /order/create
+
+- Show Odred By User (args : user id ) 
+GET : /user_orders/:user_id
+
+- add_order_detail (args : order_Id ) [token required]
+POST : /order/:order_id/product
 
 ## Data Shapes
-#### Product
--  id
-- name
-- price
-- [OPTIONAL] category
 
-#### User
-- id
-- firstName
-- lastName
-- password
+#### Product
+    id  SERIAL PRIMARY KEY 
+    name VARCHAR(100)  NOT NULL UNIQUE 
+    price integer NOT NULL 
+    category VARCHAR(50)  NOT NULL 
+#### Users
+    id  SERIAL PRIMARY KEY
+    username VARCHAR(50)  NOT NULL UNIQUE
+    firstName VARCHAR(50)  NOT NULL
+    lastName VARCHAR(50)  NOT NULL
+    pwd VARCHAR(100)  NOT NULL
 
 #### Orders
-- id
-- id of each product in the order
-- quantity of each product in the order
-- user_id
-- status of order (active or complete)
+    id  SERIAL PRIMARY KEY
+    user_id integer REFERENCES Users(id) NOT NULL
+    order_status VARCHAR(10)  NOT NULL
+
+#### Order_details
+    id  SERIAL PRIMARY KEY
+    order_id  integer REFERENCES Orders(id) NOT NULL
+    product_id integer REFERENCES Product(id) NOT NULL
+    quantity integer NOT NULL
+
 

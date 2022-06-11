@@ -20,7 +20,7 @@ const jwt_validator = async (
         const decoded: JwtPayload = jwt_decode(token);
         const { result } = decoded;
         const user_id = result.id;
-        console.log(user_id);
+        // console.log(user_id);
         // send userid with req
         req.body.user_id = user_id;
         req.body.token = token;

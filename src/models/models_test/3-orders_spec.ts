@@ -28,7 +28,7 @@ describe('order test', () => {
       expect(result).toEqual({
         id: 1,
         user_id: 1,
-        order_status: 'opened',
+        order_status: 'active',
       });
     });
   });
@@ -43,7 +43,7 @@ describe('order test', () => {
       expect(result).toEqual({
         id: 1,
         user_id: 1,
-        order_status: 'opened',
+        order_status: 'active',
       });
     });
   });
@@ -58,7 +58,7 @@ describe('order test', () => {
       expect(result).toEqual({
         id: 1,
         user_id: 1,
-        order_status: 'completed',
+        order_status: 'complete',
       });
     });
   });

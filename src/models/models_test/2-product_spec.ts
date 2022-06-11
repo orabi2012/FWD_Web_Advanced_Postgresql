@@ -7,9 +7,7 @@ const _user_model = new User_model();
 
 describe('product test', () => {
   beforeAll(async function () {
-    const _created_user = await _user_model.auth('aorabi', '123');
-    console.log('&&&&&&&&&&&&&&');
-    console.log(_created_user?.id);
+    await _user_model.auth('aorabi', '123');
   });
   describe('1-Test product index ', () => {
     it('1-1: test index method is exist', () => {

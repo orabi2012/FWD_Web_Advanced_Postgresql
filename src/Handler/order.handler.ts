@@ -74,13 +74,26 @@ const add_order_detail = async (req: Request, res: Response) => {
   }
 };
 
-const showOpenedOrders = async (req: Request, res: Response) => {
+const showActiveOrders = async (req: Request, res: Response) => {
   // const order_id = req.body.id;
 
   const user_id = parseInt(req.body.user_id);
 
   try {
-    const result = await order_reports.showOpenedOrders(user_id);
+    const result = await order_reports.showActiveOrders(user_id);
+    res.json(result);
+  } catch (error) {
+    res.status(400);
+    res.json(`${error}`);
+  }
+};
+const showCompletedOrders = async (req: Request, res: Response) => {
+  // const order_id = req.body.id;
+
+  const user_id = parseInt(req.body.user_id);
+
+  try {
+    const result = await order_reports.showCompletedOrders(user_id);
     res.json(result);
   } catch (error) {
     res.status(400);
@@ -88,9 +101,10 @@ const showOpenedOrders = async (req: Request, res: Response) => {
   }
 };
 const order_routes = (app: express.Application) => {
-  app.get('/order', jwt_validator, index);
+  app.get('/orders', jwt_validator, index);
   app.post('/order/create', jwt_validator, create_order);
-  app.get('/order/opened', jwt_validator, showOpenedOrders);
+  app.get('/order/active', jwt_validator, showActiveOrders);
+  app.get('/order/complete', jwt_validator, showCompletedOrders);
   app.post('/order/:order_id/product', jwt_validator, add_order_detail);
   app.put('/order/:order_id/close', jwt_validator, close_order);
   app.get('/user_orders/:user_id', showByUser);

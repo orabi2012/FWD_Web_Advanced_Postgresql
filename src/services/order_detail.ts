@@ -3,7 +3,7 @@ import client from '../database';
 //import { Order_detail } from '../models/types/order_details.types';
 
 export class Order_reports {
-  async showOpenedOrders(user_id: number): Promise<
+  async showActiveOrders(user_id: number): Promise<
     {
       order_id: number;
       product_id: number;
@@ -20,7 +20,7 @@ export class Order_reports {
         inner join orders 
         on orders.id = order_details.order_id
         where orders.user_id = ${user_id} 
-        and orders.order_status = 'opened' ;`;
+        and orders.order_status = 'active' ;`;
 
       const cn = await client.connect();
 
@@ -52,7 +52,7 @@ export class Order_reports {
       inner join orders 
       on orders.id = order_details.order_id
       where orders.user_id = ${user_id} 
-      and orders.order_status = 'completed' ;`;
+      and orders.order_status = 'complete' ;`;
 
       const cn = await client.connect();
 

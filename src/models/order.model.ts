@@ -32,7 +32,7 @@ export class Order_model {
   }
   async create_order(user_id: number): Promise<Order> {
     try {
-      const order_status = 'opened';
+      const order_status = 'active';
       const sql =
         'INSERT INTO orders(user_id, order_status) VALUES ( $1, $2) RETURNING *';
 
@@ -51,7 +51,7 @@ export class Order_model {
   }
   async close_order(order_id: number): Promise<Order> {
     try {
-      const order_status = 'completed';
+      const order_status = 'complete';
       const sql_update = `UPDATE orders SET order_status='${order_status}' WHERE id=${order_id};`;
       const sql = `SELECT * FROM orders WHERE id=${order_id}`;
 

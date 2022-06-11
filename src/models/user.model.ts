@@ -12,7 +12,7 @@ const hash_pwd = (passowrd: string): string => {
   return bcrypt.hashSync(`${passowrd}${bcrypt_pwd}`, salt);
 };
 
-export class user_model {
+export class User_model {
   async index(): Promise<User[]> {
     try {
       const cn = await client.connect();

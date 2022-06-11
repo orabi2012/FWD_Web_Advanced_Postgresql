@@ -1,8 +1,8 @@
-import { user_model } from '../user.model';
+import { User_model } from '../user.model';
 //import { user } from '../../models/types/user.types';
 //import client from '../../database';
 
-const bs = new user_model();
+const bs = new User_model();
 
 // beforeAll(async function () {
 //     const cn = await client.connect();

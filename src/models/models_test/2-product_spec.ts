@@ -1,9 +1,9 @@
 import { product_model } from '../product.model';
 //import { product } from '../../models/types/product.types';
 //import client from '../../database';
-import { user_model } from '../user.model';
+import { User_model } from '../user.model';
 const bs = new product_model();
-const _user_model = new user_model();
+const _user_model = new User_model();
 
 describe('product test', () => {
   beforeAll(async function () {

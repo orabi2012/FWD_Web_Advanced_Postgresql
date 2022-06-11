@@ -45,7 +45,7 @@ describe('Check Users Routes', function () {
       user_id = id;
       //done();
     });
-    it('check /  Endpoint is wrong = 400', async () => {
+    it('check ser/login  Endpoint is wrong = 400', async () => {
       const response = await request
         .post('/user/login')
         .set('Content-Type', 'application/json')

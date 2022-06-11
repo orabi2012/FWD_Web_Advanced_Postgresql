@@ -1,7 +1,7 @@
 import client from '../database';
 import { Product } from './types/product.types';
 
-export class product_model {
+export class Product_model {
   async index(): Promise<Product[]> {
     try {
       const cn = await client.connect();

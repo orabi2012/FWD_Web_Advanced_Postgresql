@@ -1,9 +1,9 @@
 import express, { Request, Response } from 'express';
 import { Product } from '../models/types/product.types';
-import { product_model } from '../models/product.model';
+import { Product_model } from '../models/product.model';
 import jwt_validator from '../middleware/jwt_middleware';
 
-const ps = new product_model();
+const ps = new Product_model();
 
 const index = async (req: Request, res: Response) => {
   const p = await ps.index();
@@ -17,6 +17,7 @@ const showById = async (req: Request, res: Response) => {
     if (result) {
       res.json(result);
     } else {
+      res.status(404);
       res.json({ message: 'Product Not found' });
     }
   } catch (error) {
@@ -30,9 +31,10 @@ const showByCategory = async (req: Request, res: Response) => {
 
   try {
     const result = await ps.showByCategory(category);
-    if (result) {
+    if (result.length > 0) {
       res.json(result);
     } else {
+      res.status(404);
       res.json({ message: 'Category Not found' });
     }
   } catch (error) {

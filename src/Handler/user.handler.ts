@@ -19,17 +19,38 @@ const create = async (req: Request, res: Response) => {
     lastname: req.body.lastname,
     pwd: req.body.pwd,
   };
-
   try {
     const result = await ps.create(p);
-    // const user = result;
-    const token = jwt.sign(`${result}`, `${jwt_token}`);
-    // console.log({ data: result, token: token });
-    res.json({ data: result, token: token });
+    // console.log('result=>' + result?.username);
+    if (result) {
+      //const user = result;
+      const token = jwt.sign({ result }, `${jwt_token}`);
+      res.status(200);
+      res.json({
+        user_data: { ...result },
+        token: token,
+        message: `user ${result.username} successfully authenticated`,
+      });
+    } else {
+      res.status(400);
+      res.json({ message: 'something wrong - try again !' });
+      // res.json('Not found');
+    }
   } catch (error) {
     res.status(400);
-    res.json(`${error}`);
+    res.json({ message: 'Error => ' + error });
   }
+
+  // try {
+  //   const result = await ps.create(p);
+  //   // const user = result;
+  //   const token = jwt.sign(`${result}`, `${jwt_token}`);
+  //   // console.log({ data: result, token: token });
+  //   res.json({ data: result, token: token });
+  // } catch (error) {
+  //   res.status(400);
+  //   res.json(`${error}`);
+  // }
 };
 
 const showByUseId = async (req: Request, res: Response) => {

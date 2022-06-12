@@ -7,16 +7,16 @@
   add this values (use your information) :- 
 
 NODE_ENV=dev
-PORT
-PG_PORT
-PG_HOST
-PG_DB_DEV
-PG_DB_TEST
-PG_USER
-PG_PASSOWRD
-bcrypt_pwd
-bcrypt_salt
-jwt_token
+PORT=3000
+PG_PORT=5432
+PG_HOST=localhost
+PG_DB_DEV=Storefront_db_dev
+PG_DB_TEST=Storefront_db_test
+PG_USER=
+PG_PASSOWRD=
+bcrypt_pwd=
+bcrypt_salt=
+jwt_token=
 
 - create 2 postgres databases  (dev and test)
 

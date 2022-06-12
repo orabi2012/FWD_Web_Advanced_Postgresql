@@ -19,6 +19,22 @@ bcrypt_salt=
 jwt_token=
 
 - create 2 postgres databases  (dev and test)
+  useing pgAdmin 
+  or 
+  psql command line
+  // PG_USER , PG_PASSOWRD
+  create user x with encrypted password 'password';
+
+  //PG_DB_DEV
+  CREATE DATABASE Storefront_db_dev;
+
+  //PG_DB_TEST
+  CREATE DATABASE Storefront_db_test;
+
+  grant all privileges on database Storefront_db_dev to x;
+  grant all privileges on database Storefront_db_test to x;
+
+- don't forget to update .env file with databases name & username / password
 
 - use package scripts : 
   - npm run up:dev 

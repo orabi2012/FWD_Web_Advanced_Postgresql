@@ -9,8 +9,14 @@ const order_model = new Order_model();
 const order_reports = new Order_reports();
 
 const index = async (req: Request, res: Response) => {
-  const order = await order_model.index();
-  res.json(order);
+  try {
+    const order = await order_model.index();
+    res.status(200);
+    res.json(order);
+  } catch (error) {
+    res.status(400);
+    res.json(`${error}`);
+  }
 };
 
 const create_order = async (req: Request, res: Response) => {
@@ -107,7 +113,7 @@ const order_routes = (app: express.Application) => {
   app.get('/order/complete', jwt_validator, showCompletedOrders);
   app.post('/order/:order_id/product', jwt_validator, add_order_detail);
   app.put('/order/:order_id/close', jwt_validator, close_order);
-  app.get('/user_orders/:user_id', showByUser);
+  app.get('/user_orders/:user_id', jwt_validator, showByUser);
   //show all if category not provided
 };
 export default order_routes;

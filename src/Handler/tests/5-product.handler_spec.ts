@@ -3,7 +3,7 @@ import app from '../../server';
 import { User_model } from '../../models/user.model';
 import { User } from '../../models/types/user.types';
 import client from '../../database';
-import { Product_model } from '../../models/product.model';
+// import { Product_model } from '../../models/product.model';
 import { Product } from '../../models/types/product.types';
 
 //import { token } from 'morgan';
@@ -11,7 +11,7 @@ import { Product } from '../../models/types/product.types';
 const request = supertest(app);
 
 const user_model = new User_model();
-const product_model = new Product_model();
+// const product_model = new Product_model();
 
 let test_token = '';
 // let user_id = 0;

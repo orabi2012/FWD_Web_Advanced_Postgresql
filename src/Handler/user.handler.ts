@@ -40,16 +40,6 @@ const create = async (req: Request, res: Response) => {
     res.status(400);
     res.json({ message: 'Error => ' + error });
   }
-
-  // try {
-  //   const result = await ps.create(p);
-  //   // const user = result;
-  //   const token = jwt.sign(`${result}`, `${jwt_token}`);
-  //   // console.log({ data: result, token: token });
-  //   res.json({ data: result, token: token });
-  // } catch (error) {
-  //   res.status(400);
-  //   res.json(`${error}`);
   // }
 };
 
